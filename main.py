@@ -2,6 +2,7 @@
 # the open-source pygame library
 # throughout this file
 import pygame
+import sys
 from circleshape import *
 from constants import *
 from player import *
@@ -30,6 +31,7 @@ def main():
     asteroid_field = AsteroidField()
     player = Player(SCREEN_WIDTH/2, SCREEN_HEIGHT/2, PLAYER_RADIUS)
 
+    # Initialize clock and delta time
     clock = pygame.time.Clock()
     dt = 0
 
@@ -42,6 +44,11 @@ def main():
 
         for item in updatable:
             item.update(dt)
+
+        for asteroid in asteroids:
+            if asteroid.collision_check(player) == True:
+                print ("Game Over!")
+                sys.exit()
 
         for item in drawable:
             item.draw(screen)
